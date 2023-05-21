@@ -10,9 +10,22 @@ public class Position {
         this.rank = rank;
     }
 
-    public Position(int column, int rank){
-        this.file = (char) (64 + column);
+    public Position(int file, int rank){
+        this.file = (char) (65 + file);
         this.rank = rank;
     }
 
+    public int getRank() {
+        return rank;
+    }
+
+    public char getFile() {
+        return file;
+    }
+
+    @Override
+    public String toString() {
+        return String.valueOf((char) (file + 65))
+                .concat(String.valueOf(rank));
+    }
 }

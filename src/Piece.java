@@ -1,4 +1,4 @@
-public abstract class Piece {
+public abstract class Piece implements MoveType{
     String colour;
     String moveType;
     char file;
@@ -7,6 +7,11 @@ public abstract class Piece {
 
     public Piece(String colour){
         this.colour = colour.toLowerCase();
+    }
+
+    public Piece(int file, int rank){
+        this.colour = "null";
+        position = new Position(file, rank);
     }
 
     public String getColour() {
@@ -31,6 +36,22 @@ public abstract class Piece {
 
     public Position getPosition() {
         return position;
+    }
+
+    public char getFile() {
+        return file;
+    }
+
+    public int getRank() {
+        return rank;
+    }
+
+    public String opponent(){
+        if(this.colour.equals("white")){
+            return "black";
+        }else{
+            return "white";
+        }
     }
 
     @Override

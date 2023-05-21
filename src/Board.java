@@ -17,18 +17,9 @@ public class Board {
     public static final String w = white;
     Piece[][] board;
     public Board(){
-//        board= {
-//                {"bR", "bN", "bB", "bQ", "bK", "bB", "bN", "bR"},
-//                {"bP", "bP", "bP", "bP", "bP", "bP", "bP", "bP"},
-//                {" ", " ", " ", " ", " ", " ", " ", " "},
-//                {" ", " ", " ", " ", " ", " ", " ", " "},
-//                {" ", " ", " ", " ", " ", " ", " ", " "},
-//                {" ", " ", " ", " ", " ", " ", " ", " "},
-//                {" ", "wP", "wP", "wP", "wP", "wP", "wP", "wP"},
-//                {"wR", "wN", "wB", "wQ", "wK", "wB", "wN", "wR"},
-//        };
         board = new Piece[8][8];
 
+        int emptySquares = 2;
         for (int i = 0; i < 8; i += 7) {
             String colour = white;
             if(i != 0) colour = black;
@@ -36,18 +27,22 @@ public class Board {
             int pawn = 1;
             if(i != 0) pawn = 6;
 
-            board[i][0] = new Rook(colour);
-            board[i][1] = new Knight(colour);
-            board[i][2] = new Bishop(colour);
-            board[i][3] = new Queen(colour);
-            board[i][4] = new King(colour);
-            board[i][6] = new Knight(colour);
-            board[i][5] = new Bishop(colour);
-            board[i][7] = new Rook(colour);
+            board[i][0] = new Rook(colour, 0, i);
+            board[i][1] = new Knight(colour, 1, i);
+            board[i][2] = new Bishop(colour, 2, i);
+            board[i][3] = new Queen(colour, 3, i);
+            board[i][4] = new King(colour, 4, i);
+            board[i][6] = new Knight(colour, 6, i);
+            board[i][5] = new Bishop(colour, 5 ,i );
+            board[i][7] = new Rook(colour, 7 , i);
 
             for (int j = 0; j < 8; j++) {
-                board[pawn][j] = new Pawn(colour);
+                board[pawn][j] = new Pawn(colour, j, pawn);
+
+                board[emptySquares][j] = new NullPiece(j, emptySquares);
+                board[emptySquares + 1][j] = new NullPiece(j, emptySquares + 1);
             }
+            emptySquares += 2;
         }
 
     }
@@ -82,7 +77,6 @@ public class Board {
             int rank = Character.getNumericValue(input.charAt(1)) - 1;
             Piece selected = board[rank][file];
 
-//            System.out.println(selected);
             // Check if selected square is our piece
             if(selected.equals(null)){
                 System.out.println("That is not a piece");
@@ -99,16 +93,21 @@ public class Board {
             Piece toMove = board[newRank][newFile];
 
             // Same colour piece we attacking?
-            if(toMove != null) {
-                if (toMove.getColour().equals(selected.getColour())) {
-                    System.out.println("That is your own piece");
-                    continue;
+            if (validMove(selected, toMove)) {
+                if(!(toMove instanceof NullPiece)) {
+                    if (toMove.getColour().equals(selected.getColour())) {
+                        System.out.println("That is your own piece");
+                        continue;
+                    }
                 }
+            }else{
+                System.out.println("Move is invalid, try again");
+                continue;
             }
 
             // Otherwise: We move and leave null behind
             board[newRank][newFile] = selected;
-            board[rank][file] = null;
+            board[rank][file] = new NullPiece(file, rank);
             validMove = true;
         }
     }
@@ -118,10 +117,19 @@ public class Board {
         final StringBuffer sb = new StringBuffer();
         for (int i = 7; i >= 0; i--) {
             for (int j = 0; j < 8; j++) {
-                sb.append(board[i][j] == null ? " E" : board[i][j].toString()).append(j == 7 ? " " : ", ");
+                sb.append(board[i][j])
+                        .append(j == 7 ? " " : ", ");
             }
             sb.append("\n");
         }
         return sb.toString();
+    }
+
+    public boolean validMove(Piece piece, Piece toMove) {
+        if(piece.legalMoves(this)
+                .contains(toMove.getPosition())){
+            System.out.println("Valid move");
+        }
+        return false;
     }
 }
