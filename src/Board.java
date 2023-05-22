@@ -1,6 +1,5 @@
-import java.util.Arrays;
-import java.util.Objects;
-import java.util.Scanner;
+import java.util.*;
+
 public class Board {
     public static final char A = 'A';
     public static final char B = 'B';
@@ -16,6 +15,7 @@ public class Board {
     public static final String b = black;
     public static final String w = white;
     Piece[][] board;
+    static Map<Character, Piece> pieces = Board.getPieces();
     public Board(){
         board = new Piece[8][8];
 
@@ -46,8 +46,34 @@ public class Board {
         }
 
     }
-    public Board(char[] setup){
+    public Board(String[][] state){
         board = new Piece[8][8];
+        String colour;
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+
+                if(state[i][j].charAt(0) == 'w')   colour = white;
+                else if(state[i][j].charAt(0) == 'b')   colour = black;
+                else colour = "n";
+
+                if(colour.equals("n")){
+                    board[i][j] = new NullPiece(j, i);
+                }else{
+                    char type = state[i][j].charAt(1);
+                    Piece p;
+                    if(type == 'P') p = new Pawn();
+                    else if (type == 'R') p = new Rook();
+                    else if (type == 'K') p = new King();
+                    else if (type == 'Q') p = new Queen();
+                    else if (type == 'B') p = new Bishop();
+                    else  p = new Knight();
+
+                    p.setColour(colour);
+                    p.setPosition(new Position(j, i));
+                    board[i][j] = p;
+                }
+            }
+        }
     }
 
     public void setBoard(Piece[][] board) {
@@ -129,7 +155,20 @@ public class Board {
         if(piece.legalMoves(this)
                 .contains(toMove.getPosition())){
             System.out.println("Valid move");
+            return true;
         }
         return false;
+    }
+
+    static private HashMap<Character, Piece> getPieces(){
+        HashMap<Character, Piece> temp = new HashMap<>();
+        temp.put('P', new Pawn());
+        temp.put('R', new Rook());
+        temp.put('K', new King());
+        temp.put('Q', new Queen());
+        temp.put('N', new Knight());
+        temp.put('B', new Bishop());
+
+        return temp;
     }
 }

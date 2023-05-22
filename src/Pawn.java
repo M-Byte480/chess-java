@@ -3,6 +3,10 @@ import java.util.ArrayList;
 public class Pawn extends Piece{
     boolean firstMove = true;
     int direction = 1;
+    public Pawn(){
+        super();
+    }
+
     public Pawn(String colour, int file, int rank){
         super(colour);
         position = new Position(file, rank);

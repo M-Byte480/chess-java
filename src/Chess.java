@@ -13,7 +13,18 @@ public class Chess {
         }
         board.print();
     }
-
+    public Chess(Board board){
+        boolean endGame = false;
+        String playerToMove = "white";
+        int moveCounter = 0;
+        while(!endGame) {
+            moveCounter++;
+            playerToMove = moveCounter % 2 == 0 ? "black" : "white";
+            board.print();
+            board.makeMove(playerToMove);
+        }
+        board.print();
+    }
     void endState(boolean endGame, boolean whiteMoved){
         // White King Mate
         // Black King Mate

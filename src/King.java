@@ -1,6 +1,9 @@
 import java.util.ArrayList;
 
 public class King extends Piece{
+    public King(){
+        super();
+    }
     public King(String colour, int file, int rank){
         super(colour);
         position = new Position(file, rank);

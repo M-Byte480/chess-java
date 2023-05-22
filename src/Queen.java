@@ -2,6 +2,9 @@ import java.util.ArrayList;
 
 public class Queen extends Piece{
 
+    public Queen(){
+        super();
+    }
     public Queen(String colour, int file, int rank){
         super(colour);
         position = new Position(file, rank);

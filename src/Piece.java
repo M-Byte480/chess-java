@@ -5,6 +5,10 @@ public abstract class Piece implements MoveType{
     int rank;
     Position position;
 
+    public Piece(){
+        this.colour = "null";
+    }
+
     public Piece(String colour){
         this.colour = colour.toLowerCase();
     }
@@ -13,6 +17,7 @@ public abstract class Piece implements MoveType{
         this.colour = "null";
         position = new Position(file, rank);
     }
+
 
     public String getColour() {
         return colour;
@@ -39,18 +44,20 @@ public abstract class Piece implements MoveType{
     }
 
     public char getFile() {
-        return file;
+        return this.getPosition().getFile();
     }
 
     public int getRank() {
-        return rank;
+        return this.getPosition().getRank();
     }
 
     public String opponent(){
         if(this.colour.equals("white")){
             return "black";
-        }else{
+        }else if(this.colour.equals("black")){
             return "white";
+        }else{
+            return "null";
         }
     }
 

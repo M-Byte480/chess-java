@@ -1,6 +1,9 @@
 import java.util.ArrayList;
 
 public class Rook extends Piece {
+    public Rook(){
+        super();
+    }
     public Rook(String colour, int file, int rank){
         super(colour);
         position = new Position(file, rank);
