@@ -11,15 +11,15 @@ public class main {
                 {"wR", "wN", "wB", "wQ", "wK", "wB", "wN", "wR"}
         };
 
-//        state =new String[][]
-//               {{"bR", " E", " E", " E", " E", " E", " E", " E"},
-//                {" E", " E", " E", " E", " E", " E", " E", " E"},
-//                {" E", " E", " E", " E", " E", " E", " E", " E"},
-//                {" E", " E", " E", "wN", " E", " E", " E", " E"},
-//                {" E", " E", " E", " E", " E", " E", " E", " E"},
-//                {" E", " E", " E", " E", " E", " E", " E", " E"},
-//                {" E", " E", " E", " E", " E", " E", " E", " E"},
-//                {"wR", " E", "wB", " E", " E", "wB", " E", " E"}};
+        state =new String[][]
+               {{"bR", " E", " E", " E", " E", " E", " E", " E"},
+                {" E", " E", " E", " E", " E", " E", " E", " E"},
+                {" E", " E", " E", " E", " E", " E", " E", " E"},
+                {" E", " E", " E", "wN", " E", " E", " E", " E"},
+                {" E", " E", " E", " E", " E", " E", " E", " E"},
+                {" E", " E", " E", " E", " E", " E", " E", " E"},
+                {" E", " E", " E", " E", " E", " E", " E", " E"},
+                {"wR", " E", "wB", " E", " E", "wB", " E", " E"}};
 
         Board board = new Board(reverse(state));
         Chess chessGame = new Chess(board);

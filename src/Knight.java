@@ -56,7 +56,6 @@ public class Knight extends Piece{
             }
 
         }
-        System.out.println(legalMoves);
         return legalMoves;
     }
 }

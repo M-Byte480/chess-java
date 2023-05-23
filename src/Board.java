@@ -66,7 +66,7 @@ public class Board {
                     else if (type == 'K') p = new King();
                     else if (type == 'Q') p = new Queen();
                     else if (type == 'B') p = new Bishop();
-                    else  p = new Knight();
+                    else p = new Knight();
 
                     p.setColour(colour);
                     p.setPosition(new Position(j, i));
@@ -132,6 +132,7 @@ public class Board {
             }
 
             // Otherwise: We move and leave null behind
+            selected.setPosition(toMove.getPosition());
             board[newRank][newFile] = selected;
             board[rank][file] = new NullPiece(file, rank);
             validMove = true;
@@ -152,8 +153,10 @@ public class Board {
     }
 
     public boolean validMove(Piece piece, Piece toMove) {
-        if(piece.legalMoves(this)
-                .contains(toMove.getPosition())){
+        System.out.println(piece.legalMoves(this));
+        ArrayList<Position> legal = piece.legalMoves(this);
+        Position p = toMove.getPosition();
+        if(legal.contains(p)){
             System.out.println("Valid move");
             return true;
         }

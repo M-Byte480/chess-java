@@ -28,7 +28,7 @@ public class Bishop extends Piece {
         Piece toCheck;
         boolean pathNotBlocked1 = true, pathNotBlocked2 = true, pathNotBlocked3 = true, pathNotBlocked4 = true;
         for (int i = 1; i < 8; i++) {
-            file = this.getFile();
+            file = this.getFile() - 65;
             rank = this.getRank();
 
             fileToCheck = file + i;

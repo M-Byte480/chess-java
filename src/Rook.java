@@ -19,40 +19,53 @@ public class Rook extends Piece {
         System.out.println("Rook selected");
         ArrayList<Position> legalMoves = new ArrayList<>();
 
-        int file = this.getFile();
+        int file = this.getFile() - 65;
         int rank = this.getRank();
+
+        int rankToCheck;
+        int fileToCheck;
         Piece toCheck;
-        for (int i = 1; i < rank; i++) {
-            toCheck = board.board[this.getRank() - i][file];
+        for (int i = rank - 1; i > -1; i--) {
+            toCheck = board.board[i][file];
             if(toCheck instanceof NullPiece){
-                legalMoves.add(new Position(file, i));
-            }else{
+                legalMoves.add(toCheck.getPosition());
+            }else if(toCheck.getColour().equals(this.colour)){
+                break;
+            }else if(toCheck.getColour().equals(this.opponent())){
+                legalMoves.add(toCheck.getPosition());
                 break;
             }
         }
-        for (int i = 1; i < file; i++) {
-            toCheck = board.board[rank][this.getFile() - 65 - i];
-            if(toCheck instanceof NullPiece ||
-                    toCheck.getColour().equals(this.opponent())){
-                legalMoves.add(new Position(i, rank));
-            }else{
-                break;
-            }
-        }
-        for (int i = 1; i < 7 - rank; i++) {
-            toCheck = board.board[this.getRank() + i][file];
+        for (int i = file - 1; i > -1; i--) {
+            toCheck = board.board[rank][i];
             if(toCheck instanceof NullPiece){
-                legalMoves.add(new Position(file, i));
-            }else{
+                legalMoves.add(toCheck.getPosition());
+            }else if(toCheck.getColour().equals(this.colour)){
+                break;
+            }else if(toCheck.getColour().equals(this.opponent())){
+                legalMoves.add(toCheck.getPosition());
                 break;
             }
         }
-        for (int i = 1; i < 7 - file; i++) {
-            toCheck = board.board[rank][this.getFile() + i];
-            if(toCheck instanceof NullPiece ||
-                    toCheck.getColour().equals(this.opponent())){
-                legalMoves.add(new Position(i, rank));
-            }else{
+        for (int i = 1; i < 8 - rank; i++) {
+            toCheck = board.board[rank + i][file];
+            if(toCheck instanceof NullPiece){
+                legalMoves.add(toCheck.getPosition());
+            }else if(toCheck.getColour().equals(this.colour)){
+                break;
+            }else if(toCheck.getColour().equals(this.opponent())){
+                legalMoves.add(toCheck.getPosition());
+                break;
+            }
+        }
+        for (int i = 1; i < 8 - file; i++) {
+            toCheck = board.board[rank][file + i];
+            if(toCheck instanceof NullPiece){
+                legalMoves.add(toCheck.getPosition());
+            }else if(toCheck.getColour().equals(this.colour)){
+                break;
+            }else if(toCheck.getColour().equals(this.opponent())){
+                legalMoves.add(toCheck.getPosition());
                 break;
             }
         }

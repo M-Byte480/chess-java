@@ -25,7 +25,6 @@ public class Position {
 
     @Override
     public String toString() {
-        return String.valueOf((char) (file + 65))
-                .concat(String.valueOf(rank));
+        return "" + (file) + "" + (rank + 1);
     }
 }
